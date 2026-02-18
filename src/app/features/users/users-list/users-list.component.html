@@ -1,0 +1,25 @@
+
+<div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+  <p-button label="Adicionar usuário" (onClick)="openDialog()" />
+
+</div>
+
+
+  <p-table [value]="users" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>SobreNome</th>
+            <th>Gênero</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-user>
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.gender.name}}</td>
+        </tr>
+    </ng-template>
+  </p-table>
