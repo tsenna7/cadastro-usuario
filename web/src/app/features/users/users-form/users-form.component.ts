@@ -112,6 +112,7 @@ export class UsersFormComponent implements OnInit {
     }
 
     addressTab() {
+        this.disabledAddressTab.set(false)
         this.currentTab.set(1);
     }
 

@@ -5,7 +5,7 @@
 <app-users-info [user]="user()" *ngIf="showInfo()" [visible]="showInfo()" (close)="close()">
 
 </app-users-info>
-<p-tabs [(value)]="currentTab()">
+<p-tabs [value]="currentTab()">
     <p-tablist>
         <p-tab [value]="0">Geral</p-tab>
         <p-tab [value]="1" [disabled]="disabledAddressTab()">Endereço</p-tab>
