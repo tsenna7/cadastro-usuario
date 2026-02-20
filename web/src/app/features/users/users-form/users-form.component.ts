@@ -6,13 +6,13 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TabsModule } from 'primeng/tabs';
 import { SelectModule } from "primeng/select";
 import { MessageService } from 'primeng/api';
-import { catchError, take } from "rxjs";
-
+import { InputMaskDirective } from "primeng/inputmask";
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from "primeng/button";
+import { catchError, take } from "rxjs";
+
 import { UserGender } from "../../../shared/enums/user-gender";
-import { InputMaskDirective } from "primeng/inputmask";
 import { ViacepsService } from "../../../core/services/viaceps.service";
 import { UsersService } from "../users.service";
 import { User } from "../../../shared/models/User";
@@ -40,22 +40,22 @@ export class UsersFormComponent implements OnInit {
     service = inject(UsersService);
     router = inject(Router);
     activatedRoute = inject(ActivatedRoute);
+    viacepsService = inject(ViacepsService);
+
     private messageService = inject(MessageService);
 
     user = signal({} as User);
     isEditing = signal(false);
-    currentTab = 0;
-    disabledAddressTab = true;
-    showInfo = false;
+    currentTab = signal(0);
+    disabledAddressTab = signal(true);
+    showInfo = signal(false);
+    searchLoading = signal(false);
+
     form = inject(FormBuilder).group({
         name: ["", Validators.required],
         lastName: ["", Validators.required],
         gender: [null as any as { id: number; name: string }, Validators.required],
     });
-
-    viacepsService = inject(ViacepsService);
-
-    searchLoading = signal(false);
 
     addressForm = inject(FormBuilder).group({
         zipcode: ["", Validators.required],
@@ -66,6 +66,7 @@ export class UsersFormComponent implements OnInit {
         number: [null as any as number, Validators.required],
         complement: [""],
     });
+
     genders = [
         {
             id: UserGender.MALE,
@@ -85,7 +86,7 @@ export class UsersFormComponent implements OnInit {
             this.service.single(id).subscribe(resp => {
                 this.user.set(resp);
                 this.setControls(resp);
-                this.disabledAddressTab = false
+                this.disabledAddressTab.set(false)
                 this.isEditing.set(true)
             })
         }
@@ -110,12 +111,12 @@ export class UsersFormComponent implements OnInit {
         })
     }
 
-    nextStep() {
-        this.currentTab = 1;
+    addressTab() {
+        this.currentTab.set(1);
     }
 
-    backStep() {
-        this.currentTab = 0;
+    firstTab() {
+        this.currentTab.set(0);
     }
 
     save() {
@@ -130,7 +131,6 @@ export class UsersFormComponent implements OnInit {
             }))
         } else {
             this.service.create(paramsToSend).subscribe((resp: User) => {
-
                 this.afterSave(resp);
             })
         }
@@ -144,11 +144,11 @@ export class UsersFormComponent implements OnInit {
         });
 
         this.user.set(user);
-        this.showInfo = true;
+        this.showInfo.set(true);
     }
 
     close() {
-        this.showInfo = false;
+        this.showInfo.set(false);
         this.backToList();
     }
 

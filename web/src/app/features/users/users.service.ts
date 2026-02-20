@@ -19,7 +19,7 @@ export class UsersService {
     }
 
     update(id: string, params: any){
-        return this.http.post<User>(`http://localhost:3000/users/${id}`, params).pipe(take(1))
+        return this.http.patch<User>(`http://localhost:3000/users/${id}`, params).pipe(take(1))
     }
 
     remove(code: string){
