@@ -1,13 +1,16 @@
 import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
-import { UsersService } from '../users.service';
-import { BehaviorSubject, take } from 'rxjs';
-import { User } from '../../../shared/models/User';
 import { CommonModule } from '@angular/common';
+import { Router } from "@angular/router";
+
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { Router } from "@angular/router";
 import { TooltipModule } from 'primeng/tooltip';
 import { MessageService } from "primeng/api";
+import { take } from 'rxjs';
+
+import { UsersService } from '../users.service';
+import { User } from '../../../shared/models/User';
+
 
 @Component({
     selector: 'app-users-list',

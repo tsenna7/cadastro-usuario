@@ -2,7 +2,6 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
-import Aura from '@primeuix/themes/aura';
 import Lara from '@primeuix/themes/lara';
 
 import { routes } from './app.routes';

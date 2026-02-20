@@ -1,20 +1,22 @@
-import { Component, inject, numberAttribute, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { NgIf } from "@angular/common";
+import { ActivatedRoute, Router } from "@angular/router";
+
+import { TabsModule } from 'primeng/tabs';
+import { SelectModule } from "primeng/select";
+import { MessageService } from 'primeng/api';
+import { catchError, take } from "rxjs";
+
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from "primeng/button";
 import { UserGender } from "../../../shared/enums/user-gender";
-import { SelectModule } from "primeng/select";
-import { TabsModule } from 'primeng/tabs';
 import { InputMaskDirective } from "primeng/inputmask";
 import { ViacepsService } from "../../../core/services/viaceps.service";
-import { catchError, take } from "rxjs";
-import { MessageService } from 'primeng/api';
 import { UsersService } from "../users.service";
-import { ActivatedRoute, Router } from "@angular/router";
 import { User } from "../../../shared/models/User";
 import { UsersInfoComponent } from "../users-info/users-info.component";
-import { NgIf } from "@angular/common";
 
 @Component({
     selector: 'app-users-form',
